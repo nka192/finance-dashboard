@@ -1,3 +1,5 @@
+import "./expanded-theme";
+
 export const tokens = {
   grey: {
     100: "#f0f0f3",
@@ -58,6 +60,10 @@ export const themeSettings = {
     },
     tertiary: {
       ...tokens.tertiary,
+      main: tokens.tertiary[500],
+      light: tokens.tertiary[500],
+      dark: tokens.tertiary[500],
+      contrastText: "#fff",
     },
     grey: {
       ...tokens.grey,
