@@ -33,14 +33,26 @@ const Row1 = () => {
           responsive
           data={revenueExpenses}
           margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
+            top: 15,
+            right: 25,
+            left: 15,
+            bottom: 60,
           }}
         >
           <defs>
             <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="5%"
+                stopColor={palette.primary[300]}
+                stopOpacity={0.5}
+              />
+              <stop
+                offset="95%"
+                stopColor={palette.primary[300]}
+                stopOpacity={0}
+              />
+            </linearGradient>
+            <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
               <stop
                 offset="5%"
                 stopColor={palette.primary[300]}
@@ -76,7 +88,7 @@ const Row1 = () => {
             dot={true}
             stroke={palette.primary.main}
             fillOpacity={1}
-            fill="url(#colorRevenue)"
+            fill="url(#colorExpenses)"
           />
         </AreaChart>
       </DashboardBox>
