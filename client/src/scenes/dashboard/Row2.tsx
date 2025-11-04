@@ -203,7 +203,7 @@ const Row2 = () => {
             <Tooltip formatter={(v) => `$${v}`} />
             <Scatter
               name="Product Expense Ratio"
-              data={productExpenseData}
+              data={productExpenseData?.filter((d) => d.price && d.expense)}
               fill={palette.tertiary[500]}
               shape={(props: { cx?: number; cy?: number }) => (
                 <circle
