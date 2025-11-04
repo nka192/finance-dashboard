@@ -27,4 +27,4 @@ const TransactionSchema = new Schema(
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);
 
-export default Product;
+export default Transaction;
