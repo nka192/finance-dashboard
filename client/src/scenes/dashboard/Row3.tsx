@@ -35,6 +35,32 @@ const Row3 = () => {
     },
   ];
 
+  const transactionColumns = [
+    {
+      field: "_id",
+      headerName: "id",
+      flex: 1,
+    },
+    {
+      field: "buyer",
+      headerName: "Buyer",
+      flex: 0.67,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      flex: 0.35,
+      renderCell: (params: GridCellParams) => `$${params.value}`,
+    },
+    {
+      field: "productIds",
+      headerName: "Count",
+      flex: 0.3,
+      renderCell: (params: GridCellParams) =>
+        (params.value as Array<string>).length,
+    },
+  ];
+
   return (
     <>
       <DashboardBox gridArea="g">
@@ -54,12 +80,14 @@ const Row3 = () => {
             },
             "& .MuiDataGrid-cell": {
               borderBottom: `1px solid ${palette.grey[800]} !important`,
+              border: "none",
             },
             "& .MuiDataGrid-columnHeader": {
-              backgroundColor: "#2d2d34",
+              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              color: "#2d2d34",
             },
             "& .MuiDataGrid-columnSeparator": {
-              visibility: "hidden",
+              visibility: "hidden !important",
             },
           }}
         >
@@ -72,7 +100,43 @@ const Row3 = () => {
           />
         </Box>
       </DashboardBox>
-      <DashboardBox gridArea="h"></DashboardBox>
+      <DashboardBox gridArea="h">
+        <BoxHeader
+          title="Recent Orders"
+          sideText={`${transactionData?.length} latest transactions`}
+        />
+        <Box
+          mt="1rem"
+          p="0 0.5rem"
+          height="80%"
+          sx={{
+            "& .MuiDataGrid-root": {
+              color: palette.grey[300],
+              backgroundColor: "#2d2d34",
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              border: "none",
+            },
+            "& .MuiDataGrid-columnHeader": {
+              borderBottom: `1px solid ${palette.grey[800]} !important`,
+              color: "#2d2d34",
+            },
+            "& .MuiDataGrid-columnSeparator": {
+              visibility: "hidden !important",
+            },
+          }}
+        >
+          <DataGrid
+            rows={transactionData || []}
+            columns={transactionColumns}
+            columnHeaderHeight={25}
+            rowHeight={35}
+            hideFooter={true}
+          />
+        </Box>
+      </DashboardBox>
       <DashboardBox gridArea="i"></DashboardBox>
       <DashboardBox gridArea="j"></DashboardBox>
     </>
