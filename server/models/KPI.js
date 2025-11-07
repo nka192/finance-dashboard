@@ -80,7 +80,24 @@ const KPISchema = new Schema(
     monthlyData: [monthSchema],
     dailyData: [daySchema],
   },
-  { timestamps: true, toJSON: { getters: true } }
+  {
+    timestamps: true,
+    toJSON: {
+      getters: true,
+      transform: (_, ret) => {
+        const cleanExpenses = {};
+        for (const [key, value] of Object.entries(
+          ret.expensesByCategory || {}
+        )) {
+          if (key !== "$*") {
+            cleanExpenses[key] = value;
+          }
+        }
+        ret.expensesByCategory = cleanExpenses;
+        return ret;
+      },
+    },
+  }
 );
 
 const KPI = mongoose.model("KPI", KPISchema);
