@@ -3,6 +3,18 @@ import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery } from "@/state/api";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
+import { data } from "react-router-dom";
+import {
+  ResponsiveContainer,
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Legend,
+  Line,
+  Tooltip,
+  Label,
+} from "recharts";
 
 type Props = {};
 
@@ -32,6 +44,70 @@ const Predictions = (props: Props) => {
           Show Predicted Revenue for Next Year
         </Button>
       </FlexBetween>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart
+          data={formattedData}
+          margin={{
+            top: 20,
+            right: 75,
+            left: 20,
+            bottom: 80,
+          }}
+        >
+          <CartesianGrid
+            strokeDasharray="3 3"
+            yAxisId="left"
+            vertical={false}
+            horizontal={true}
+            stroke={palette.grey[800]}
+          />
+          <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }}>
+            <Label value="Month" offset={-5} position="insideBottom" />
+          </XAxis>
+          <YAxis
+            domain={[12000, 26000]}
+            tickLine={false}
+            axisLine={{ strokeWidth: "0" }}
+            tickFormatter={(v) => `${{ v }}`}
+            style={{ fontSize: "10px" }}
+          >
+            <Label
+              value="Revenue in CAD"
+              offset={-5}
+              position="insideLeft"
+              angle={-90}
+            />
+          </YAxis>
+          <Tooltip />
+          <Legend
+            verticalAlign="top"
+            // height={20}
+            // wrapperStyle={{
+            //   margin: "0 0 10px 0",
+            // }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Actual Revenue"
+            stroke={palette.primary.main}
+            strokeWidth={0}
+            dot={{ strokeWidth: 5 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Regression Line"
+            stroke="#8884d8"
+            dot={false}
+          />
+          {isPredictions && (
+            <Line
+              type="monotone"
+              dataKey="Predicted Revenue"
+              stroke={palette.secondary[500]}
+            />
+          )}
+        </LineChart>
+      </ResponsiveContainer>
     </DashboardBox>
   );
 };
