@@ -1,8 +1,12 @@
 # 💰 Finance Dashboard
 
-**Full-Stack Financial Analytics Web Application**  
+A full-stack financial anlytics web application designed to visualize, analyze, and predict key financial performance metrics.
 
-A full-stack web application designed to visualize, analyze, and predict key financial performance metrics.
+<p align="center">
+<img width="30%" alt="Screenshot of Finance Dashboard (Dashboard)" src="https://github.com/user-attachments/assets/5099f431-36b6-4c5d-b197-1334e9ae5cc4" />
+<img width="30%" alt="Screenshot of Finance Dashboard (Predictions)" src="https://github.com/user-attachments/assets/11227aec-d16a-45ca-a6aa-a8e902d11964" />
+<img width="30%" alt="Screenshot of Finance Dashboard (Predictions with predicted revenue)" src="https://github.com/user-attachments/assets/2cfff3f5-bba8-4fac-bb5a-c2ff34ba5c2f" />
+</p>
 
 ---
 
