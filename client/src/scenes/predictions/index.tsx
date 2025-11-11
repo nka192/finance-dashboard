@@ -2,8 +2,7 @@ import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery } from "@/state/api";
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
-import { data } from "react-router-dom";
+import { useMemo, useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -15,13 +14,31 @@ import {
   Tooltip,
   Label,
 } from "recharts";
+import regression, { type DataPoint } from "regression";
 
-type Props = {};
-
-const Predictions = (props: Props) => {
+const Predictions = () => {
   const { palette } = useTheme();
-  const { isPredictions, setIsPredictions } = useState(false);
+  const [isPredictions, setIsPredictions] = useState(false);
   const { data: kpiData } = useGetKpisQuery();
+
+  const formattedData = useMemo(() => {
+    if (!kpiData) return [];
+    const monthData = kpiData[0].monthlyData;
+    const formatted: Array<DataPoint> = monthData.map(
+      ({ revenue }, i: number) => {
+        return [i, revenue];
+      }
+    );
+    const regressionLine = regression.linear(formatted);
+    return monthData.map(({ month, revenue }, i: number) => {
+      return {
+        name: month,
+        "Actual Revenue": revenue,
+        "Regression Line": regressionLine.points[i][1],
+        "Predicted Revenue": regressionLine.predict(i + 12)[1],
+      };
+    });
+  }, [kpiData]);
 
   return (
     <DashboardBox width="100%" height="100%" p="1rem" overflow="hidden">
@@ -68,7 +85,7 @@ const Predictions = (props: Props) => {
             domain={[12000, 26000]}
             tickLine={false}
             axisLine={{ strokeWidth: "0" }}
-            tickFormatter={(v) => `${{ v }}`}
+            tickFormatter={(v) => `$${v}`}
             style={{ fontSize: "10px" }}
           >
             <Label
@@ -79,13 +96,7 @@ const Predictions = (props: Props) => {
             />
           </YAxis>
           <Tooltip />
-          <Legend
-            verticalAlign="top"
-            // height={20}
-            // wrapperStyle={{
-            //   margin: "0 0 10px 0",
-            // }}
-          />
+          <Legend verticalAlign="top" />
           <Line
             type="monotone"
             dataKey="Actual Revenue"
@@ -101,7 +112,7 @@ const Predictions = (props: Props) => {
           />
           {isPredictions && (
             <Line
-              type="monotone"
+              strokeDasharray="5 5"
               dataKey="Predicted Revenue"
               stroke={palette.secondary[500]}
             />
