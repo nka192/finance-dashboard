@@ -160,10 +160,16 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea="i">
         <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
-        <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
+        <FlexBetween
+          mt="0.5rem"
+          gap="0.2rem"
+          p="0 1rem"
+          textAlign="center"
+          flexWrap="wrap"
+        >
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={110} height={100}>
+              <PieChart width={80} height={80}>
                 <Pie
                   stroke="none"
                   data={data}

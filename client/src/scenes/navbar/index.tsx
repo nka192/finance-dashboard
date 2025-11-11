@@ -28,7 +28,7 @@ const Navbar = () => {
               textDecoration: "inherit",
             }}
           >
-            dashboard
+            Dashboard
           </Link>
         </Box>
         <Box>
@@ -40,7 +40,7 @@ const Navbar = () => {
               textDecoration: "inherit",
             }}
           >
-            predictions
+            Predictions
           </Link>
         </Box>
       </FlexBetween>
